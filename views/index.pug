@@ -1,0 +1,22 @@
+doctype html
+html
+    head
+        title= title
+        link(rel="stylesheet" type="text/css" href="./style.css")
+        script(src="../scripts/newRecepie.js" type="text/javascript")
+        script(src="../scripts/jquery-3.4.0.min.js" type="text/javascript")
+    
+    body
+        h1 MAIN PAGE
+
+        form
+            h4 Name:
+            input(type="text" name="name")
+            br
+            h4 Tags
+            input(type="text" name="tags")
+            br
+            h4 Body
+            input(type="text" name="body")
+            br
+            input(type="button", value="Speichern", onclick="createFood_recepie()")
