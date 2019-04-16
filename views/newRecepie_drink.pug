@@ -1,0 +1,20 @@
+doctype html
+html
+    head
+        title= title
+        link(rel="stylesheet" type="text/css" href="/style.css")
+    
+    body
+        h1 MAIN PAGE
+
+        form(method="POST", action="/rezepte/drink/submit-form")
+            h4 Name:
+            input(type="text" name="name")
+            br
+            h4 Tag:
+            input(type="text" name="tags")
+            br
+            h4 Body:
+            input(type="text" name="body")
+            br
+            input(type="submit", value="Speichern")
