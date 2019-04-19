@@ -28,9 +28,4 @@ mongoose.connect('mongodb://localhost/recepies', { useNewUrlParser: true })
     .then(() => console.log('Successfully connected to MongoDB!'))
     .catch(err => console.error("Couldn't connect to MongoDB.", err));
 
-//recepieModule.getAllRecepies();
-//recepieModule.getRecepiebyID('NVFBGR-hp')
-//let out = recepieModule.result;
-//console.log(out);
-
 app.listen(port);

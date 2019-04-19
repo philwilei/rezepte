@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 //create the food schema
 const foodSchema = new mongoose.Schema({
     _id:  { type: String, default: shortid.generate},
-    type: { type: String , default: 'Food'},
+    type: { type: String , default: 'food'},
     name: String,
     tags: String,
     date: { type: Date, default: Date.now },
@@ -42,7 +42,7 @@ async function getFoodRecepies() {
 
 const drinkSchema = new mongoose.Schema({
     _id: { type: String, default: shortid.generate},
-    type: { type: String, default: 'Drink'},
+    type: { type: String, default: 'drink'},
     name: String,
     tags: String,
     date: { type: Date, default: Date.now },
@@ -76,9 +76,40 @@ async function getAllRecepies() {
     getDrinkRecepies();
 }
 
-async function getRecepiebyID(id) {
-    const result = await FoodClass.findOne({ _id: 'NVFBGR-hp'});
-    module.exports.result = result;
+async function getRecepieById(id) {
+    result = await FoodClass.findById(id);
+    if (result) return result;
+    result = await DrinkClass.findById(id);
+    if (result) return result;
+    // ... add all schemas here!
+    return result;
+}
+
+async function deleteRecepieById(id, type) {
+    let result = undefined;
+    let success = false;
+    switch (type) {
+        case 'food':
+            result = await FoodClass.findByIdAndDelete(id);
+            if (result) {
+                console.log(result);
+                return success = true;
+                break;
+            }
+        case 'drink':
+            result = await DrinkClass.findByIdAndDelete(id);
+            if (result) {
+                console.log(result);
+                return success = true;
+                break;
+            }
+        // add all other cases here...
+
+        default:
+            console.log('Something in the DELETE process went wrong, check recepieModule.js');
+            return success = false;
+            break;
+    } 
 }
 
 module.exports.createFoodRecepie = createFoodRecepie;
@@ -88,4 +119,5 @@ module.exports.createDrinkRecepie = createDrinkRecepie;
 module.exports.getDrinkRecepies = getDrinkRecepies;
 
 module.exports.getAllRecepies = getAllRecepies;
-module.exports.getRecepiebyID = getRecepiebyID;
+module.exports.getRecepieById = getRecepieById;
+module.exports.deleteRecepieById = deleteRecepieById;
