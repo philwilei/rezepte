@@ -5,7 +5,7 @@ function deleteRecepie() {
             type: "DELETE",
             url: window.location.pathname,
             error: () => console.log("error during ajax DELETE request.")
-        });
+        }).done();
     }
 }
 // window.location.pathname

@@ -45,9 +45,13 @@ router.delete('/rezept/:id', async function(req, res) {
         console.log('no recepie returned by getRecepieById function')
     }
     else {
-        const success = await recepieModule.deleteRecepieById(req.params.id, recepie.type);
+        let success = await recepieModule.deleteRecepieById(req.params.id, recepie.type)
+        console.log(success);
+        /*
+        console.log(success);
         if (success == true) res.redirect('/rezepte/deleted');
         if (success == false) console.log('something went wrong');
+        */
     }
 });
 

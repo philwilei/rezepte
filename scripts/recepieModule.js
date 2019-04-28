@@ -94,7 +94,6 @@ async function deleteRecepieById(id, type) {
             if (result) {
                 console.log(result);
                 return success = true;
-                break;
             }
         case 'drink':
             result = await DrinkClass.findByIdAndDelete(id);
@@ -106,7 +105,7 @@ async function deleteRecepieById(id, type) {
         // add all other cases here...
 
         default:
-            console.log('Something in the DELETE process went wrong, check recepieModule.js');
+            console.log('invalid recepie.type passed to deleteRecepieById(), check recepieModule.js');
             return success = false;
             break;
     } 
