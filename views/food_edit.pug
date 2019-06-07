@@ -8,16 +8,18 @@ html
         link(rel="stylesheet", href="/popupS.css")
     
     body
-        h1 MAIN PAGE
+        h1 Rezept bearbeiten
+        //h4= data.name
 
-        form(method="POST", action="/rezepte/drink/submit-form")
+        form(method="POST", action="/rezepte/food/update-form")
+            input(type="hidden" name="_id" value= data._id)
             h4 Name:
-            input(type="text" name="name")
+            input(type="text" name="name" value= data.name)
             br
             h4 Tag:
-            input(type="text" name="tags")
+            input(type="text" name="tags" value= data.tags)
             br
             h4 Body:
-            input(type="text" name="body")
+            input(type="text" name="body" value= data.body)
             br
             input(type="submit", value="Speichern")

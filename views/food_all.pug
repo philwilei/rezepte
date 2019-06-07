@@ -1,0 +1,25 @@
+doctype html
+html
+    head
+        title= title
+        script(src="/jquery-3.4.0.min.js")
+        script(src="/bundle.js")
+        link(rel="stylesheet" href="/style.css")
+        link(rel="stylesheet", href="/popupS.css")
+
+body
+    div(class = 'inline', style = {width: '80%'})
+        h3 Alle "food" Rezepte
+    div(class = 'inline')
+        form(action="/rezepte/food/new", class = 'inline')
+            button(type="submit", class = 'inline') NEU +
+
+    table(class = 'table1')
+        each index in list
+            tr
+                td
+                    - var id = index._id
+                    a(href='/rezepte/food/rezept/' + id) #{index.name}
+
+                td(class = 'edit_icon') Edit
+                td(class = 'delete_icon') Delete

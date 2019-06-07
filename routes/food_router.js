@@ -1,3 +1,4 @@
+import alert from 'alert-node'
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -12,8 +13,8 @@ const infoExtractor = require('../scripts/infoExtractor');
 // --- router --- //
 //   rezepte/food
 router.get('/', async function(req, res) {
-    res.send('Alle "food" Rezepte');
-
+    let all_recepies = await recepieModule.getFoodRecepies();
+    res.render('food_all', {list: all_recepies});
 });
 
 //   rezepte/food/rezept/:id
@@ -46,9 +47,8 @@ router.delete('/rezept/:id', async function(req, res) {
     }
     else {
         let success = await recepieModule.deleteRecepieById(req.params.id, recepie.type)
-        console.log(success);
+        //console.log(success);
         /*
-        console.log(success);
         if (success == true) res.redirect('/rezepte/deleted');
         if (success == false) console.log('something went wrong');
         */
@@ -59,7 +59,13 @@ router.delete('/rezept/:id', async function(req, res) {
 router.get('/deleted', (req, res) => res.send('Rezept wurde gelöscht'));
 
 //   rezepte/food/new
-router.get('/new', (req, res) => res.render('newRecepie_food', {title: 'Neues Rezept'}));
+router.get('/new', (req, res) => res.render('food_new', {title: 'Neues Rezept'}));
+
+//   rezepte/food/edit/:id
+router.get('/edit/:id', async function(req, res) {
+    let recepie = await recepieModule.getRecepieById(req.params.id);
+    res.render('food_edit', {data: recepie});
+})
 
 //   rezepte/food/submit-form
 router.post('/submit-form', (req, res) => {
@@ -70,6 +76,14 @@ router.post('/submit-form', (req, res) => {
 
     res.redirect('/rezepte/food');
 });
+router.post('/update-form', (req, res) => {
+    id = req.body._id;
+    name = req.body.name;
+    tags = req.body.tags;
+    body = req.body.body;
+    recepieModule.updateFoodRecepie(id, name, tags, body);
+    res.redirect('/rezepte/food');
+})
 
 // export
 module.exports = router;

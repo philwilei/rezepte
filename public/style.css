@@ -1,3 +1,45 @@
+html {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 10px;
+}
+
 h4 {
     color: brown;
+}
+
+.inline {
+    display: inline-block;
+}
+
+.table1 {
+    padding: 20px;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table1 td {
+    padding: 10px;
+    padding-left: 30px;
+    border: 2px transparent;
+}
+
+.table1 tr:nth-child(odd) {
+    background: lightgray;
+}
+
+.table1 tr:nth-child(even) {
+    background: white;
+}
+
+.table1 a {
+    text-decoration: none;
+    color: black;
+}
+
+.edit_icon {
+    width: 20px;
+}
+
+.delete_icon {
+    width: 20px;
 }

@@ -31,9 +31,21 @@ async function createFoodRecepie(name, tag, body) {
 }
 
 async function getFoodRecepies() {
-    const allFoodRecepies  = await FoodClass.find();
-    console.log(allFoodRecepies);
-    return allFoodRecepies;
+    const allFoodRecepies = await FoodClass.find();
+    if (allFoodRecepies) return allFoodRecepies;
+    else console.log('No recepies found.');
+}
+
+async function updateFoodRecepie(id, name, tags, body) {
+    const recepie = await FoodClass.findById(id);
+    if (!recepie) return;
+    recepie.set({
+        name: name,
+        tags: tags,
+        body: body,
+        date: Date.now()
+    });
+    recepie.save();
 }
 
 
@@ -82,36 +94,31 @@ async function getRecepieById(id) {
     result = await DrinkClass.findById(id);
     if (result) return result;
     // ... add all schemas here!
-    return result;
+    return result = null;
 }
 
 async function deleteRecepieById(id, type) {
     let result = undefined;
     let success = false;
+    // mal ohne switch versuchen wie bei getRecepiebyId!
     switch (type) {
         case 'food':
             result = await FoodClass.findByIdAndDelete(id);
-            if (result) {
-                console.log(result);
-                return success = true;
-            }
+            if (result) return success = true;
+
         case 'drink':
             result = await DrinkClass.findByIdAndDelete(id);
-            if (result) {
-                console.log(result);
-                return success = true;
-                break;
-            }
+            if (result) return success = true;
         // add all other cases here...
 
         default:
             console.log('invalid recepie.type passed to deleteRecepieById(), check recepieModule.js');
             return success = false;
-            break;
     } 
 }
 
 module.exports.createFoodRecepie = createFoodRecepie;
+module.exports.updateFoodRecepie = updateFoodRecepie;
 module.exports.getFoodRecepies = getFoodRecepies;
 
 module.exports.createDrinkRecepie = createDrinkRecepie;

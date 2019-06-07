@@ -1,0 +1,25 @@
+{
+  "name": "expressjs-project",
+  "version": "1.0.0",
+  "description": "A Cooking Recepie Manager!",
+  "main": "main.js",
+  "dependencies": {
+    "alert-node": "^1.2.5",
+    "express": "^4.16.4",
+    "express-browserify": "^1.0.3",
+    "helmet": "^3.16.0",
+    "mongoose": "^5.5.1",
+    "popups": "^1.1.3",
+    "pug": "^2.0.3",
+    "requirejs": "^2.3.6",
+    "shortid": "^2.2.14"
+  },
+  "devDependencies": {
+    "browserify": "^16.2.3"
+  },
+  "scripts": {
+    "build": "browserify main.js -o public/bundle.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
