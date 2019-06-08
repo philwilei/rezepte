@@ -1,19 +1,21 @@
 doctype html
 html
     head
-        title= title
-        script(src="/jquery-3.4.0.min.js")
-        script(src="/bundle.js")
+        title= recepie.name
         link(rel="stylesheet" href="/style.css")
-        link(rel="stylesheet", href="/popupS.css")
     
     body
-        p This is a recepie of type "#{type}"
+        p This is a recepie of type "#{recepie.type}", id #{recepie._id}
         br
-        h1= name
-        h4= tags
-        p= body
+        h1= recepie.name
+        h4= recepie.tags
+        p= recepie.body
         br
-        p Last edited: #{date}
+        p Zuletzt bearbeitet: #{recepie.date}
 
-        input(type="button" value="delete" onclick="deleteRecepie();")
+        form(action="/rezepte/" + recepie.type + "/delete-form", method="post")
+            button(type="submit") Löschen
+            input(type="hidden", name="_id", value= recepie._id)
+
+        form(action="/rezepte/" + recepie.type + "/edit/" + recepie._id, method="get")
+            button(type="submit") Bearbeiten

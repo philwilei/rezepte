@@ -1,4 +1,3 @@
-import alert from 'alert-node'
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -13,47 +12,20 @@ const infoExtractor = require('../scripts/infoExtractor');
 // --- router --- //
 //   rezepte/food
 router.get('/', async function(req, res) {
-    let all_recepies = await recepieModule.getFoodRecepies();
+    const all_recepies = await recepieModule.getFoodRecepies();
     res.render('food_all', {list: all_recepies});
 });
 
 //   rezepte/food/rezept/:id
 router.get('/rezept/:id', async function(req, res) {
-    let recepie = await recepieModule.getRecepieById(req.params.id);
-    if (!recepie) {
-        //res.send('ERROR 404 - Recepie not found');
+    const id = req.params.id
+    const recepie = await recepieModule.getRecepieById(id);
+    if (recepie) {
+        res.render('show_recepie', {recepie: recepie})
+    } else {
         res.statusCode = 404;
-        console.log(`error - recepie with id ${req.params.id} not found`);
     }
-    else {
-        const extractorResult = await infoExtractor.extract(recepie);
-        res.render('show_recepie', {
-            type: extractorResult[0],
-            __id: extractorResult[1],
-            name: extractorResult[2],
-            tags: extractorResult[3],
-            body: extractorResult[4],
-            date: extractorResult[5]
-        });
-    }
-});
-
-router.delete('/rezept/:id', async function(req, res) {
-    let recepie = await recepieModule.getRecepieById(req.params.id);
-    
-    if (!recepie) {
-        res.statusCode = 404;
-        console.log('no recepie returned by getRecepieById function')
-    }
-    else {
-        let success = await recepieModule.deleteRecepieById(req.params.id, recepie.type)
-        //console.log(success);
-        /*
-        if (success == true) res.redirect('/rezepte/deleted');
-        if (success == false) console.log('something went wrong');
-        */
-    }
-});
+})
 
 //   rezepte/food/deleted
 router.get('/deleted', (req, res) => res.send('Rezept wurde gelöscht'));
@@ -76,6 +48,8 @@ router.post('/submit-form', (req, res) => {
 
     res.redirect('/rezepte/food');
 });
+
+//   rezepte/food/update-form
 router.post('/update-form', (req, res) => {
     id = req.body._id;
     name = req.body.name;
@@ -83,6 +57,20 @@ router.post('/update-form', (req, res) => {
     body = req.body.body;
     recepieModule.updateFoodRecepie(id, name, tags, body);
     res.redirect('/rezepte/food');
+})
+
+//   rezepte/food/delete-form
+router.post('/delete-form', async function(req, res) {
+    id = req.body._id;
+    console.log(req.body._id);
+    const result = await recepieModule.deleteRecepieById(id);
+    console.log(result);
+    if (result) {
+        res.redirect('/rezepte/food');
+        return;
+    } else {
+        res.statusCode = 400;
+    }
 })
 
 // export

@@ -2,9 +2,11 @@ A nodeJS-based cooking recepie manager!
 
 Todos:
 
-+  update functionality with PUT requests
++  ~~update functionality with PUT requests~~  DONE
++  ~~automatic redirects after successful DELETE~~ OVERHAULED
 +  comprehensive tag system
-+  automatic redirects after successful DELETE
++  input validation
++  text editor implementation
 +  nicer UI with materialize.js / Bootstrap
     * top navbar
     * uniform design

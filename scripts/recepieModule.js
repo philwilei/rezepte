@@ -97,24 +97,12 @@ async function getRecepieById(id) {
     return result = null;
 }
 
-async function deleteRecepieById(id, type) {
-    let result = undefined;
-    let success = false;
-    // mal ohne switch versuchen wie bei getRecepiebyId!
-    switch (type) {
-        case 'food':
-            result = await FoodClass.findByIdAndDelete(id);
-            if (result) return success = true;
-
-        case 'drink':
-            result = await DrinkClass.findByIdAndDelete(id);
-            if (result) return success = true;
-        // add all other cases here...
-
-        default:
-            console.log('invalid recepie.type passed to deleteRecepieById(), check recepieModule.js');
-            return success = false;
-    } 
+async function deleteRecepieById(id) {
+    result = await FoodClass.findByIdAndDelete(id);
+    if (result) return result;
+    result = await DrinkClass.findByIdAndDelete(id);
+    if (result) return result;
+    return result = null;
 }
 
 module.exports.createFoodRecepie = createFoodRecepie;
