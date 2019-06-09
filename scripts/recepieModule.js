@@ -45,7 +45,8 @@ async function updateFoodRecepie(id, name, tags, body) {
         body: body,
         date: Date.now()
     });
-    recepie.save();
+    const result = await recepie.save();
+    return result;
 }
 
 

@@ -50,21 +50,24 @@ router.post('/submit-form', (req, res) => {
 });
 
 //   rezepte/food/update-form
-router.post('/update-form', (req, res) => {
+router.post('/update-form', async function(req, res) {
     id = req.body._id;
     name = req.body.name;
     tags = req.body.tags;
     body = req.body.body;
-    recepieModule.updateFoodRecepie(id, name, tags, body);
-    res.redirect('/rezepte/food');
+    const result = await recepieModule.updateFoodRecepie(id, name, tags, body);
+    if (result) {
+        res.redirect('/rezepte/food');
+    } else {
+        res.statusCode = 400;
+    }
+    
 })
 
 //   rezepte/food/delete-form
 router.post('/delete-form', async function(req, res) {
     id = req.body._id;
-    console.log(req.body._id);
     const result = await recepieModule.deleteRecepieById(id);
-    console.log(result);
     if (result) {
         res.redirect('/rezepte/food');
         return;

@@ -3,6 +3,7 @@ html
     head
         title= title
         link(rel="stylesheet" href="/style.css")
+        script(src="/socket.io/socket.io.js")
 
 body
     div(class = 'inline', style = {width: '80%'})
@@ -27,3 +28,5 @@ body
                     form(action="/rezepte/food/delete-form", method="post")
                         button(type='submit') Löschen
                         input(type='hidden', name='_id', value= index._id)
+    
+    script(src="/socket_connection.js")

@@ -1,8 +1,8 @@
-doctype html
 html
     head
         title= recepie.name
         link(rel="stylesheet" href="/style.css")
+        script(src="/socket.io/socket.io.js")
     
     body
         p This is a recepie of type "#{recepie.type}", id #{recepie._id}
@@ -19,3 +19,5 @@ html
 
         form(action="/rezepte/" + recepie.type + "/edit/" + recepie._id, method="get")
             button(type="submit") Bearbeiten
+
+        script(src="/socket_connection.js")

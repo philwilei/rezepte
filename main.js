@@ -1,11 +1,13 @@
-const shortid = require('shortid');
 const mongoose = require('mongoose');
 const express = require('express');
-const app = express()
+const socket = require('socket.io');
+
+const app = express();
 const port = process.env.PORT || 5000;
+const server = app.listen(port);
 
 // routers
-app.get('/', (req, res) => res.send('Main Page'));
+app.get('/', (req, res) => res.render('page_main'));
 
 const rezepte_router = require('./routes/rezepte_router.js');
 app.use('/rezepte', rezepte_router);
@@ -28,4 +30,15 @@ mongoose.connect('mongodb://localhost/recepies', { useNewUrlParser: true })
     .then(() => console.log('Successfully connected to MongoDB!'))
     .catch(err => console.error("Couldn't connect to MongoDB.", err));
 
-app.listen(port);
+// socket.io
+const io = socket(server);
+/*
+io.on('connection', (socket) => {
+    console.log('socket connection established');
+});
+*/
+io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('test', (data) => console.log(data));
+    socket.on('disconnect', () => console.log('user disconnected'));
+});

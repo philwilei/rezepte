@@ -1,0 +1,22 @@
+html
+    head
+        title NodeJS
+        link(rel="stylesheet", href="/style.css")
+        script(src="/jquery-3.4.0.min.js")
+        script(src="/socket.io/socket.io.js")
+
+    body
+        h1 Main Page
+        button(type="submit" id="button") test
+        br
+        input(type="text" id ="search")
+        script(src="/socket_connection.js")
+        script.
+            var btn = document.getElementById("button");
+            btn.addEventListener('click', () => {
+                socket.emit('test', 'hello');
+            });
+
+            while (($('#search').val()).length > 3) {
+                console.log($('#search').val());
+            };

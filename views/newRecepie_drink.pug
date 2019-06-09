@@ -3,6 +3,7 @@ html
     head
         title= title
         link(rel="stylesheet" href="/style.css")
+        script(src="/socket.io/socket.io.js")
     
     body
         h1 MAIN PAGE
@@ -18,3 +19,5 @@ html
             input(type="text" name="body")
             br
             input(type="submit", value="Speichern")
+
+        script(src="/socket_connection.js")
