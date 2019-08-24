@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const express = require('express');
 const socket = require('socket.io');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -10,6 +11,8 @@ const server = app.listen(port);
 app.get('/', (req, res) => res.render('page_main'));
 
 const rezepte_router = require('./routes/rezepte_router.js');
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use('/rezepte', rezepte_router);
 
 // custom modules
@@ -38,7 +41,8 @@ io.on('connection', (socket) => {
 });
 */
 io.on('connection', (socket) => {
-    console.log('a user connected');
+    //console.log('a user connected');
     socket.on('test', (data) => console.log(data));
-    socket.on('disconnect', () => console.log('user disconnected'));
+    socket.on('search', (data) => console.log(data));
+    //socket.on('disconnect', () => console.log('user disconnected'));
 });

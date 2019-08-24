@@ -13,7 +13,7 @@ const infoExtractor = require('../scripts/infoExtractor');
 //   rezepte/food
 router.get('/', async function(req, res) {
     const all_recepies = await recepieModule.getFoodRecepies();
-    res.render('food_all', {list: all_recepies});
+    res.render('food_all', {list: all_recepies, title: 'Alle Rezepte'});
 });
 
 //   rezepte/food/rezept/:id
@@ -41,10 +41,11 @@ router.get('/edit/:id', async function(req, res) {
 
 //   rezepte/food/submit-form
 router.post('/submit-form', (req, res) => {
-    a = req.body.name;
-    b = req.body.tags;
-    c = req.body.body;
-    recepieModule.createFoodRecepie(a, b, c);
+    name = req.body.name;
+    type = req.body.type;
+    tags = req.body.tags;
+    body = req.body.body;
+    recepieModule.createFoodRecepie(name, type, tags, body);
 
     res.redirect('/rezepte/food');
 });
@@ -53,9 +54,10 @@ router.post('/submit-form', (req, res) => {
 router.post('/update-form', async function(req, res) {
     id = req.body._id;
     name = req.body.name;
+    type = req.body.type;
     tags = req.body.tags;
     body = req.body.body;
-    const result = await recepieModule.updateFoodRecepie(id, name, tags, body);
+    const result = await recepieModule.updateFoodRecepie(id, name, type, tags, body);
     if (result) {
         res.redirect('/rezepte/food');
     } else {

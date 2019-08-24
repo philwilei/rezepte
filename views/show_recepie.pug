@@ -2,22 +2,26 @@ html
     head
         title= recepie.name
         link(rel="stylesheet" href="/style.css")
-        script(src="/socket.io/socket.io.js")
     
     body
-        p This is a recepie of type "#{recepie.type}", id #{recepie._id}
-        br
-        h1= recepie.name
-        h4= recepie.tags
-        p= recepie.body
-        br
-        p Zuletzt bearbeitet: #{recepie.date}
+        div(class="navbar_top")
+            a(class="navbar_alignLeft" href="/") Home
+            a(class="navbar_alignLeft" href="/rezepte/food") Alle Rezepte
+            a(class="navbar_alignLeft" href="/rezepte/food/new") Neues Rezept
 
-        form(action="/rezepte/" + recepie.type + "/delete-form", method="post")
-            button(type="submit") Löschen
-            input(type="hidden", name="_id", value= recepie._id)
+            form(method="POST" action="/rezepte/search-form")
+                input(type="text" name="term" class="navbar_search" placeholder="Suchen...")
+        
+        div(class="container")
+            h1= recepie.name
+            h4= recepie.tags
+            p= recepie.body
+            br
+            
 
-        form(action="/rezepte/" + recepie.type + "/edit/" + recepie._id, method="get")
-            button(type="submit") Bearbeiten
+            form(action="/rezepte/food/delete-form", method="post")
+                button(type="submit") Löschen
+                input(type="hidden", name="_id", value= recepie._id)
 
-        script(src="/socket_connection.js")
+            form(action="/rezepte/food/edit/" + recepie._id, method="get")
+                button(type="submit") Bearbeiten

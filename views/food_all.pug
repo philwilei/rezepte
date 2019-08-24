@@ -6,27 +6,31 @@ html
         script(src="/socket.io/socket.io.js")
 
 body
-    div(class = 'inline', style = {width: '80%'})
-        h3 Alle "food" Rezepte
-    div(class = 'inline')
-        form(action="/rezepte/food/new", class = 'inline')
-            button(type="submit", class = 'inline') NEU +
+    div(class="navbar_top")
+        a(class="navbar_alignLeft" href="/") Home
+        a(class="navbar_alignLeft" class="active" href="/rezepte/food") Alle Rezepte
+        a(class="navbar_alignLeft" href="/rezepte/food/new") Neues Rezept
 
-    table(class = 'table1')
-        each index in list
-            tr
-                td
-                    - var id = index._id
-                    a(href='/rezepte/food/rezept/' + id) #{index.name}
-
-                td(class='edit_icon')
-                    - var id = index._id
-                    form(action="/rezepte/food/edit/" + id , method="get")
-                        button(type='submit') Bearbeiten
-
-                td(class='delete_icon')
-                    form(action="/rezepte/food/delete-form", method="post")
-                        button(type='submit') Löschen
-                        input(type='hidden', name='_id', value= index._id)
+        form(method="POST" action="/rezepte/search-form")
+            input(type="text" name="term" class="navbar_search" placeholder="Suchen...")
     
-    script(src="/socket_connection.js")
+    div(class="container")
+        div
+            h2 Alle Rezepte
+
+        table(class = 'table1')
+            each index in list
+                tr
+                    td
+                        - var id = index._id
+                        a(href='/rezepte/food/rezept/' + id) #{index.name}
+
+                    td(class='edit_icon')
+                        - var id = index._id
+                        form(action="/rezepte/food/edit/" + id , method="get")
+                            button(type='submit') Bearbeiten
+
+                    td(class='delete_icon')
+                        form(action="/rezepte/food/delete-form", method="post")
+                            button(type='submit') Löschen
+                            input(type='hidden', name='_id', value= index._id)

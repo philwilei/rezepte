@@ -3,21 +3,33 @@ html
     head
         title= title
         link(rel="stylesheet" href="/style.css")
-        script(src="/socket.io/socket.io.js")
     
     body
-        h1 Neues Rezept
+        div(class="navbar_top")
+            a(class="navbar_alignLeft" href="/") Home
+            a(class="navbar_alignLeft" href="/rezepte/food") Alle Rezepte
+            a(class="navbar_alignLeft" class="active" href="/rezepte/food/new") Neues Rezept
 
-        form(method="POST", action="/rezepte/food/submit-form")
-            h4 Name:
-            input(type="text" name="name" required)
-            br
-            h4 Tag:
-            input(type="text" name="tags" required)
-            br
-            h4 Body:
-            input(type="text" name="body" required)
-            br
-            input(type="submit", value="Speichern")
-
-        script(src="/socket_connection.js")
+            form(method="POST" action="/rezepte/search-form")
+                input(type="text" name="term" class="navbar_search" placeholder="Suchen...")
+        
+        div(class="container")
+            form(method="POST", action="/rezepte/food/submit-form")
+                h4 Name:
+                input(type="text" name="name" required)
+                br
+                h4 Typ:
+                select(name="type")
+                    option(value="fleisch") Fleisch
+                    option(value="fisch") Fisch
+                    option(value="vegetrisch") Vegetarisch
+                    option(value="vegan") Vegan
+                    option(value="andere") Andere
+                br
+                h4 Tag:
+                input(type="text" name="tags" required)
+                br
+                h4 Body:
+                input(type="text" name="body" required)
+                br
+                input(type="submit", value="Speichern")
